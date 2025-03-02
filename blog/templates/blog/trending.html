@@ -1,0 +1,125 @@
+{% load static %}
+
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts do Dia</title>
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+</head>
+<body>
+
+    <nav>
+
+        <ul>
+
+            <li>
+
+                <a href="/">Home</a>
+                <a href="/categorys/">Categorias</a>
+                <a href="/trending/">Mais votados</a>
+                <a href="logout">Logout</a>
+
+
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <h1>Posts do dia</h1>
+    <p>Olá, {{ user.username }}, estes são os posts do dia!</p>
+
+    <div class="posts-list">
+        {% for post in posts %}
+            <div class="post">
+                <h2>{{ post.title }}</h2>
+
+                <!-- Verificando se o post tem categoria -->
+                {% if post.category %}
+                    <a href="{% url 'category_view' category_name=post.category.category_name %}">Categoria: {{ post.category.category_name }}</a>
+                {% endif %}
+
+                <p>
+                    {% if post.picture %}
+                        <img class="post-picture" src="{{ post.picture.url }}" alt="Imagem do post">
+                    {% endif %}
+                    {{ post.content }}
+
+                </p>
+                <form class="form-like" action="{% url 'add_like_post' post.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">👍 Like <span>({{ post.likes }})</span></button>
+                </form>
+                <small>Publicado dia {{ post.published_at }} por: {{post.author}}</small>
+
+
+                <ul id="comment-list-{{ post.id }}">
+                    {% for comment in post.comments.all %}
+                        <li>
+                            <strong>{{ comment.user.username }}</strong> comentou: {{ comment.comment }}
+                            <small>({{ comment.created_at }})</small>
+                            <form class="form-like" action="{% url 'add_like_comment' comment.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit">👍 Like <span>({{ comment.likes }})</span></button>
+                            </form>
+
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <form class="form-comment" data-post-id="{{ post.id }}">
+                    {% csrf_token %}  <!-- Token CSRF do Django -->
+                    <textarea class="comment" name="comment"></textarea>
+                    <input type="hidden" class="post_id" value="{{ post.id }}">
+                    <button type="submit">Comentar</button>
+                </form>
+        
+
+                
+
+            </div>
+            <br>
+
+
+        {% empty %}
+            <p>Não há posts ainda!</p>
+        {% endfor %}
+    </div>
+
+    <h1>Faça um novo post</h1>
+
+    <!-- Formulário para criar um post -->
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Exibe o formulário de criação de post -->
+        <button type="submit" name="create_post">Criar Post</button>
+    </form>
+
+    <h1>Criar uma nova categoria</h1>
+    <p>Apenas usuários do pau grosso podem criar categorias</p>
+
+    <!-- Formulário para criar uma categoria -->
+    <form method="POST">
+        {% csrf_token %}
+        {{ category_form.as_p }}  <!-- Exibe o formulário de criação de categoria -->
+        <button type="submit" name="create_category">Criar Categoria</button>  <!-- Botão para criar categoria -->
+    </form>
+
+
+        <!-- Exibindo mensagens de erro com JavaScript -->
+    {% if messages %}
+        <script>
+            {% for message in messages %}
+                alert("{{ message }}");  // Exibe a mensagem como um alert no navegador
+            {% endfor %}
+        </script>
+    {% endif %}
+
+
+    <script src="{% static 'blog/js/script.js' %}"></script>
+
+    
+
+</body>
+</html>
