@@ -2,16 +2,10 @@ services:
   - type: web
     name: matematikoy-django
     runtime: python
-    buildCommand: "./build.sh"
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput  # Coleta arquivos estáticos antes do deploy
     startCommand: "gunicorn website.wsgi:application --bind 0.0.0.0:$PORT"
     envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: my-django-db
-          property: connectionString
       - key: SECRET_KEY
         sync: false
-
-databases:
-  - name: my-django-db
-    ipAllowList: []  # Permite todas as conexões
