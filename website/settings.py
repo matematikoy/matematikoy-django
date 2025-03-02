@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -137,16 +137,16 @@ USE_TZ = True
 # Base directory do projeto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# URL para acessar os arquivos estáticos
+# URL dos arquivos estáticos
 STATIC_URL = '/static/'
 
-# Diretório onde o Django coletará os arquivos estáticos (para produção)
+# Diretório onde os arquivos coletados serão armazenados (para produção)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# WhiteNoise para servir arquivos estáticos no Render
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# NÃO defina STATICFILES_DIRS se os estáticos estão dentro dos apps
 
-# NÃO defina STATICFILES_DIRS, pois os arquivos estáticos estão dentro dos apps
+# WhiteNoise para servir arquivos estáticos corretamente no Render
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Configuração de mídia (caso tenha uploads)
 MEDIA_URL = '/media/'
