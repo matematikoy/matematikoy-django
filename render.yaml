@@ -4,7 +4,7 @@ services:
     runtime: python
     buildCommand: |
       pip install -r requirements.txt
-      python manage.py collectstatic --noinput  # Coleta arquivos estáticos antes do deploy
+      python manage.py collectstatic --noinput  # Adicionando isso!
     startCommand: "gunicorn website.wsgi:application --bind 0.0.0.0:$PORT"
     envVars:
       - key: SECRET_KEY
