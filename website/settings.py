@@ -136,7 +136,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),  # Diretório geral de estáticos
     os.path.join(BASE_DIR, 'blog/static'),  # Diretório do app "blog"
-]s
+]
 
 
 # Default primary key field type
