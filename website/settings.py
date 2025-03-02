@@ -133,15 +133,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "static/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # Diretório onde os arquivos serão coletados
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+STATIC_URL = '/static/'  # Barra no começo é importante!
+
+# Onde os arquivos serão coletados pelo `collectstatic`
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Onde os arquivos estão antes de coletar
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "website/static"),  # Onde estão os arquivos antes de serem coletados
+    os.path.join(BASE_DIR, 'static'),  # Aqui deve apontar para a pasta 'static' do projeto
 ]
 
-STATICFILES_STORAGE = "whitenoise.storage.StaticFilesStorage"
+# WhiteNoise para servir arquivos estáticos em produção
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 
