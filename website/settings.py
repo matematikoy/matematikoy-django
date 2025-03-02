@@ -138,7 +138,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # Diretório onde os arquivos serão coletados
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),  # Onde estão os arquivos antes de serem coletados
+    os.path.join(BASE_DIR, "website/static"),  # Onde estão os arquivos antes de serem coletados
 ]
 
 STATICFILES_STORAGE = "whitenoise.storage.StaticFilesStorage"
