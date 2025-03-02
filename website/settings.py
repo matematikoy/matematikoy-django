@@ -133,16 +133,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+STATIC_URL = "/static/"
 
-STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")  # Diretório onde os arquivos serão coletados
 
-# Onde o Django irá coletar os arquivos estáticos para produção
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# Diretórios onde o Django irá procurar arquivos estáticos
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Diretório geral de estáticos
+    os.path.join(BASE_DIR, "static"),  # Onde estão os arquivos antes de serem coletados
 ]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
