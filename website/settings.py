@@ -134,20 +134,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Base directory do projeto
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-STATIC_URL = '/static/'  # Barra no começo é importante!
+# URL para acessar os arquivos estáticos
+STATIC_URL = '/static/'
 
-# Onde os arquivos serão coletados pelo `collectstatic`
+# Diretório onde o Django coletará os arquivos estáticos (para produção)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Onde os arquivos estão antes de coletar
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Aqui deve apontar para a pasta 'static' do projeto
-]
-
-# WhiteNoise para servir arquivos estáticos em produção
+# WhiteNoise para servir arquivos estáticos no Render
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# NÃO defina STATICFILES_DIRS, pois os arquivos estáticos estão dentro dos apps
+
+# Configuração de mídia (caso tenha uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
