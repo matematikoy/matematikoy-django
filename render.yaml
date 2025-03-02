@@ -12,6 +12,3 @@ services:
       - key: SECRET_KEY
         sync: false
 
-databases:
-  - name: my-django-db
-    ipAllowList: []  # Permite todas as conexões
