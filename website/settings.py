@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-^xi#^$p&rx$r0x9t-_%+2=o6#_)rk-@b!96^pq377va-ur@$5%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"  # Usa variável de ambiente
 
-ALLOWED_HOSTS = ["matematikoy-django.onrender.com"]
+ALLOWED_HOSTS = ["matematikoyblog.onrender.com"]
 
 
 # Application definition
